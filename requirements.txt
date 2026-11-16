@@ -1,5 +1,5 @@
 PySide6>=6.8,<7
 
-# Optional local image AI runtime:
+# Optional photo-grouping dependencies:
 # python -m pip install -e ".[vision]"
 # This installs NumPy, ONNX Runtime, and Pillow; model weights download once from the UI.

@@ -67,13 +67,13 @@ Signatures take precedence over extensions where recognizable. Package-like docu
 
 The scanner also records empty directories, files at least 500 MiB, and unreadable items. It does not inspect archive contents and does not treat file classification as a safety verdict.
 
-## 5. Local image intelligence
+## 5. Optional photo grouping
 
 ### Model and runtime
 
 The optional image model is MediaPipe EfficientNet-Lite0 INT8/UINT8 ONNX from KETI Software Platform Team. The model file is 5,148,096 bytes (about 4.91 MiB), accepts a 224×224 RGB uint8 image, and predicts one of 1,000 ImageNet classes.
 
-The user presses Download image AI. Xortify downloads the fixed model artifact over HTTPS, verifies its expected byte count and SHA-256 digest, writes it to a temporary file, then atomically installs it in:
+When requested, Xortify downloads the photo-grouping model over HTTPS, checks its size and SHA-256 digest, and installs it in:
 
 ~~~text
 %LOCALAPPDATA%\Xortify\models
@@ -87,7 +87,7 @@ Selected photo files, names, hashes, predictions, and scan results are never sen
 
 Xortify skips image inference inside recognized project folders. For other images, it uses the top model class when the output confidence reaches 0.10. Suitable class IDs map to broad folders such as Cats, Dogs, Birds, Animals, Food, Vehicles, Nature, and Sports. Images with a mapped topic from different source folders converge into one reviewed collection folder, with numbered filenames on collisions. A label with no supported broad mapping or a low score leaves the regular name/folder suggestion in place.
 
-This is fixed-label image classification, not a language model, object detector, embedding search, or user-trained vision model. It can identify common ImageNet categories such as cat breeds; it cannot reliably infer arbitrary scenes, relationships, people, or personal labels. The model does not process video or documents.
+The classifier chooses from a fixed list of 1,000 labels, so results are broad suggestions and can be wrong. It does not support custom categories or process video and document contents.
 
 ### Commercial-release gate
 
@@ -156,9 +156,9 @@ The main window has a Frutiger Aero visual style and includes:
 - Findings for duplicates, large files, empty folders, and unreadable paths; and
 - recent activity.
 
-The file-data privacy badge distinguishes analysis from model setup: photo contents stay on the PC; the model download is explicit. Once downloaded, the local model can run offline.
+The privacy badge explains that photos stay on the PC and the separate model download is optional. Once installed, photo grouping works offline.
 
-Python 3.10+, PySide6 6.8+, and setuptools are required for the desktop. Install the UI and optional local image AI with:
+Python 3.10+, PySide6 6.8+, and setuptools are required for the desktop. Install the UI and optional photo-grouping dependencies with:
 
 ~~~powershell
 python -m pip install -e ".[dev,vision]"

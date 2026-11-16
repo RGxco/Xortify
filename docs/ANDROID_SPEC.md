@@ -84,6 +84,6 @@ Output: `app/build/outputs/apk/debug/app-debug.apk`. The Android Gradle Plugin s
 
 ## Local image classifier
 
-The classifier is the same fixed-label model used by the desktop prototype. It recognizes 1,000 ImageNet classes and maps supported labels to broad folders such as Cats, Dogs, Birds, Animals, Food, Vehicles, Nature, and Sports. Photos are EXIF-oriented, center-cropped, and resized to 224 × 224. ONNX Runtime executes on the phone CPU. The image model is not a conversational language model and cannot understand custom labels or arbitrary scenes.
+The classifier is the same fixed-label model used by the desktop app. It maps some of its 1,000 labels to broad folders such as Cats, Dogs, Birds, Animals, Food, Vehicles, Nature, and Sports. Photos are EXIF-oriented, center-cropped, and resized to 224 × 224. ONNX Runtime runs on the phone CPU. Results can be wrong, and custom labels and arbitrary scenes are not supported.
 
 The 5 MiB model weights are not bundled in the APK. The optional model download stays an explicit button, and the app checks both the known file length and SHA-256 before loading it. The training-data commercial-use concern recorded in `THIRD_PARTY_NOTICES.md` applies to Android too.
