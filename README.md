@@ -2,6 +2,8 @@
 
 Xortify is a local-first Windows desktop organizer for reviewing a folder, grouping recognizable photos, and cleaning up loose files. It proposes changes first. Nothing moves until you select and approve the plan.
 
+An Android companion app is under `android/`. It uses the Android folder picker and touch-first layouts that adapt to portrait, landscape, tablets, and resizable windows. See [the Android build and use guide](docs/ANDROID_SPEC.md).
+
 ## v0.1
 
 - Scans a selected folder in the background without changing it.
@@ -45,6 +47,23 @@ powershell -ExecutionPolicy Bypass -File .\packaging\build_windows.ps1
 ~~~
 
 The single-file app is written to `dist\Xortify.exe`. It includes the local image inference runtime; the 5 MB model weights remain a separate download from inside the app to keep the executable smaller.
+
+## Android app
+
+Download the Windows executable and Android APK from the [GitHub Releases page](https://github.com/RGxco/Xortify/releases). The Android APK is a debug-signed preview build for direct installation; it is not a Play Store release.
+
+Open the `android` folder in Android Studio, or build the installable debug APK from PowerShell after installing the Android SDK and accepting its license:
+
+~~~powershell
+cd "$env:USERPROFILE\OneDrive\Desktop\Xortify\android"
+.\gradlew.bat assembleDebug
+~~~
+
+The APK is written to `android\app\build\outputs\apk\debug\app-debug.apk`. It supports Android 8.0 and newer and targets Android 16 (API 36). It is debug-signed for personal testing; a release signing key and Play Store setup are still needed before distribution.
+
+Android scans only a folder the user chooses through the system picker. For local-only behavior, Xortify accepts the built-in phone-storage or SD-card provider and does not connect to cloud-storage providers. Android may block selecting the storage root or Downloads on newer releases, so choose a subfolder. The app keeps the orientation unlocked and changes from a single-column phone layout to a wider navigation-and-content layout when more screen width is available.
+
+The optional 4.9 MiB image model is downloaded only when requested, verified by SHA-256, and then runs on-device through ONNX Runtime. It classifies photos into broad fixed-label topics; it does not provide open-ended scene understanding, video analysis, OCR, or document-semantic AI. The model's commercial-use review remains open; see [third-party notices](docs/THIRD_PARTY_NOTICES.md).
 
 ## Tests
 

@@ -32,6 +32,8 @@ The label map's first entry is a background label; the 1,000 remaining entries a
 
 The optional vision extra uses NumPy, ONNX Runtime, and Pillow. Each dependency retains its own license and notices when included in a packaged application. PySide6 also has its own LGPL/GPL/commercial licensing terms. Packaging and distribution review should inventory the exact wheels, Qt plugins, codecs, and licenses included in the final Windows installer.
 
+The Android build uses ONNX Runtime Android 1.23.2 (`com.microsoft.onnxruntime:onnxruntime-android`) under its Apache 2.0 license, plus AndroidX and Jetpack Compose libraries. Preserve their license notices when creating a release build and inventory the native libraries included for each Android ABI.
+
 ## Product release checklist
 
 Before any paid distribution, record:
@@ -41,3 +43,4 @@ Before any paid distribution, record:
 3. Label-map attribution and license.
 4. The exact dependency and Qt plugin licenses in the built installer.
 5. Any changes to these assets or their upstream terms.
+6. The Android runtime's Apache notice and the final APK's ABI-specific native libraries.

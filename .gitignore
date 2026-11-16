@@ -6,3 +6,11 @@ build/
 dist/
 *.egg-info/
 *.spec
+android/.gradle/
+android/**/build/
+android/local.properties
+android/.idea/
+android/*.iml
+android/keystore.properties
+android/*.jks
+android/*.keystore
